@@ -1,5 +1,5 @@
 local Translations = {
-   --["NOL  Forsaken"] = "被遗弃”
+   --["NOL"] = "被遗弃”
 }
 
 local function translateText(text)
