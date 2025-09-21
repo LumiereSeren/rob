@@ -1,7 +1,21 @@
 local Translations = {
-   --["NOL"] = "宇星辰”，
-     ["Toggle"] = "长夜月”
-    
+   --["Toggle"] = "切换",
+    ["Look"] = "查看",
+    ["NOL"] = "NOL",
+    ["Forsaken"] = "遗忘",
+    ["Announcement"] = "公告",
+    ["Main"] = "主页",
+    ["Join us Discord"] = "加入我们的Discord",
+    ["Dev Yuxingchen"] = "开发者 Yuxingchen",
+    ["Join us QQ group"] = "加入我们QQ群",
+    ["Subscribe to our YouTube"] = "订阅我们的YouTube",
+    ["Group"] = "群组",
+    ["Copy"] = "复制",
+    ["Our Discord channel link"] = "我们的Discord频道链接",
+    ["Physical"] = "物理",
+    ["Generator"] = "生成器",
+    ["Aimbot"] = "自瞄",
+    ["Notice"] = "通知",
 }
 
 local function translateText(text)
