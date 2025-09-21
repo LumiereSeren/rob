@@ -1,5 +1,7 @@
 local Translations = {
-   --["NOL"] = "被遗弃”
+   --["NOL"] = "宇星辰”，
+    ["Toggle"] = "长夜月”
+    
 }
 
 local function translateText(text)
