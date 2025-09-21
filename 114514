@@ -1,6 +1,6 @@
 local Translations = {
    --["NOL"] = "宇星辰”，
-    ["Toggle"] = "长夜月”
+     ["Toggle"] = "长夜月”
     
 }
 
