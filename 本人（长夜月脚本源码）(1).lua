@@ -7,7 +7,7 @@ WindUI:SetTheme("Dark")
 WindUI:Popup({
     Title = "欢迎使用长夜月脚本",
     Icon = "sparkles",
-    Content = "尊贵的长夜月脚本用户"..game.Players.localPlayer.Name..",测试",
+    Content = "尊贵的长夜月脚本用户"..game.Players.localPlayer.Name.."正式版",
     Buttons = {
         {
             Title = "启动",
@@ -58,7 +58,7 @@ local Window = WindUI:CreateWindow({
     },
     SideBarWidth = 170, 
     ScrollBarEnabled = false 
-    Background ="rbxassetid:/79942665653488"
+    Background ="rbxassetid:/113581030666473"，- - rbxassetid only
 })
 
 Window:Tag({
@@ -139,8 +139,8 @@ TabHandles.YinyueSettings:Paragraph({
 })
 
 TabHandles.YinyueSettings:Button({
-    Title = "哈基米山歌",
-    Desc = "哈基米呦南北绿豆",
+    Title = "何者",
+    Desc = "无悔不愧",
     Value = false,
     Callback = function(value)
     local sound1 = Instance.new("Sound")
@@ -623,7 +623,7 @@ TabHandles.DesSettings:Button({
 
 TabHandles.JibaSettings:Paragraph({
     Title = "作者骚笔",
-    Desc = "帮助者2250106893",
+    Desc = "作者3970952279",
     Image = "Settings",
     ImageSize = 20,
     Color = "White"
@@ -650,7 +650,7 @@ TabHandles.DrqSettings:Button({
     Desc = "ezlol",
     Value = false,
     Callback = function(value)
-    game.Players.LocalPlayer:Kick("被踢是正常的，重新进入，因为正在跟你麻麻做爱")
+    game.Players.LocalPlayer:Kick("恭喜你发现了隐藏奖励，联系长夜月去做一件事可领取一元")
     end
 })
 
