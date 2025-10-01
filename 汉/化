@@ -1,0 +1,210 @@
+local Translations = {
+   --["Akatsuki Hub : A Universal Time"] = "晓组织中心：通用时间",
+    ["Alcatzuki Hub : A Universal Time"] = "晓组织中心：通用时间",
+    ["Aktasuk Hub : A Universal Time"] = "晓组织中心：通用时间",
+    ["Aktual Hub: A Universal Time"] = "晓组织中心：通用时间",
+    ["Akatasuki Hub : A Universal Time"] = "晓组织中心：通用时间",
+    ["Main"] = "主界面",
+    ["Boundless Tower"] = "无尽之塔",
+    ["Quests"] = "任务",
+    ["Tasks"] = "任务",
+    ["Tests"] = "测试",
+    ["CheetahTems"] = "猎豹物品",
+    ["CheetahTerms"] = "猎豹物品",
+    ["Cheetahyms"] = "猎豹物品",
+    ["Shop"] = "商店",
+    ["Teleport"] = "传送",
+    ["Stats"] = "属性",
+    ["Steps"] = "步骤",
+    ["Sarge"] = "中士",
+    ["Sapp"] = "蓝宝石",
+    ["Style"] = "风格",
+    ["Strip"] = "剥离",
+    ["Discover"] = "发现",
+    ["Discord"] = "Discord",
+    ["Diskored"] = "Discord",
+    ["Misc"] = "杂项",
+    ["UI Size"] = "UI大小",
+    ["Walk Speed"] = "行走速度",
+    ["Nocip"] = "穿墙模式",
+    ["Anti-Afix"] = "反修复",
+    ["Disable 3D Bender"] = "禁用3D弯曲",
+    ["Auto Collect Play Time Rewards"] = "自动收集游戏时间奖励",
+    ["Rejoin"] = "重新加入",
+    ["Auto Stats Points"] = "自动分配属性点",
+    ["Soundless Tower"] = "无声之塔",
+    ["Auto Farm Nearest NPC"] = "自动刷最近NPC",
+    ["Auto Slap Wave"] = "自动拍打波",
+    ["Auto Farm Level"] = "自动刷等级",
+    ["Auto Farm Suburbs Finger (M 150+)"] = "自动刷郊区手指(M 150+)",
+    ["Auto Farm NPC"] = "自动刷NPC",
+    ["Auto Farm Boxers"] = "自动刷拳击手",
+    ["Auto Farm Locosets"] = "自动刷疯子",
+    ["Farm Settings"] = "农场设置",
+    ["Farm Distance"] = "农场距离",
+    ["Auto Blue Held (3)"] = "自动蓝色持有(3)",
+    ["Auto Sell Items"] = "自动出售物品",
+    ["Auto Store Items"] = "自动存储物品",
+    ["Auto Use Skills"] = "自动使用技能",
+    ["Drop Kick"] = "飞踢",
+    ["Invitation to Hell"] = "地狱邀请",
+    ["Navigation to Hell"] = "地狱导航",
+    ["Stylish Sweeps"] = "时尚清扫",
+    ["Craft Ability"] = "制作能力",
+    ["Auto Collect Chest"] = "自动收集宝箱",
+    ["Common Chest"] = "普通宝箱",
+    ["Rare Chest"] = "稀有宝箱",
+    ["Epic Chest"] = "史诗宝箱",
+    ["Legendary Chest"] = "传奇宝箱",
+    ["Itorns"] = "铁刺",
+    ["Try to Find a Devil Fruit"] = "尝试寻找恶魔果实",
+    ["Try to Find Curved Oth"] = "尝试寻找弯曲之物",
+    ["Auto Trait Hand"] = "自动特性处理",
+    ["Current Ability"] = "当前能力",
+    ["Current Trait"] = "当前特性",
+    ["Hide Visual For Cards"] = "隐藏卡片视觉效果",
+    ["Auto Skip Trait Hand"] = "自动跳过特性处理",
+    ["Stop In"] = "停止",
+    ["WebHook"] = "网络钩子",
+    ["Please visit the site for free travel with us."] = "请访问网站与我们免费旅行。",
+    ["Status Black Market"] = "黑市状态",
+    ["Stock Market"] = "股票市场",
+    ["Teleport to Black Market"] = "传送到黑市",
+    ["Teleport to Banner"] = "传送到旗帜",
+    ["Teleport to Spawn Boat"] = "传送到生成船",
+    ["Teleport to Spawn Boat 2"] = "传送到生成船2",
+    ["Teleport to Kuma"] = "传送到熊",
+    ["Teleport to The Floating Village"] = "传送到浮游村",
+    ["Teleport to The Desert"] = "传送到沙漠",
+    ["Teleport to The Xoestar Mandion"] = "传送到Xoestar大厦",
+    ["Teleport to The Port"] = "传送到港口",
+    ["Teleport to The Poster"] = "传送到海报",
+    ["Teleport to the Poster Mandion"] = "传送到海报大厦",
+    ["Teleport to The Post"] = "传送到岗位",
+    ["Normal"] = "普通",
+    ["ID"] = "ID",
+    ["Cork Ability"] = "软木能力",
+    ["Data"] = "数据",
+    ["Dataset"] = "数据集",
+    ["ARTA"] = "阿尔塔",
+    ["TUN"] = "吨",
+    ["Drops"] = "掉落",
+    ["Kick"] = "踢",
+    ["Abstracts"] = "摘要",
+    ["Aktivity"] = "活动"
+}
+
+local function translateText(text)
+    if not text or type(text) ~= "string" then return text end
+    
+    if Translations[text] then
+        return Translations[text]
+    end
+    
+    for en, cn in pairs(Translations) do
+        if text:find(en) then
+            return text:gsub(en, cn)
+        end
+    end
+    
+    return text
+end
+
+local function setupTranslationEngine()
+    local success, err = pcall(function()
+        local oldIndex = getrawmetatable(game).__newindex
+        setreadonly(getrawmetatable(game), false)
+        
+        getrawmetatable(game).__newindex = newcclosure(function(t, k, v)
+            if (t:IsA("TextLabel") or t:IsA("TextButton") or t:IsA("TextBox")) and k == "Text" then
+                v = translateText(tostring(v))
+            end
+            return oldIndex(t, k, v)
+        end)
+        
+        setreadonly(getrawmetatable(game), true)
+    end)
+    
+    if not success then
+        warn("元表劫持失败:", err)
+       
+        local translated = {}
+        local function scanAndTranslate()
+            for _, gui in ipairs(game:GetService("CoreGui"):GetDescendants()) do
+                if (gui:IsA("TextLabel") or gui:IsA("TextButton") or gui:IsA("TextBox")) and not translated[gui] then
+                    pcall(function()
+                        local text = gui.Text
+                        if text and text ~= "" then
+                            local translatedText = translateText(text)
+                            if translatedText ~= text then
+                                gui.Text = translatedText
+                                translated[gui] = true
+                            end
+                        end
+                    end)
+                end
+            end
+            
+            local player = game:GetService("Players").LocalPlayer
+            if player and player:FindFirstChild("PlayerGui") then
+                for _, gui in ipairs(player.PlayerGui:GetDescendants()) do
+                    if (gui:IsA("TextLabel") or gui:IsA("TextButton") or gui:IsA("TextBox")) and not translated[gui] then
+                        pcall(function()
+                            local text = gui.Text
+                            if text and text ~= "" then
+                                local translatedText = translateText(text)
+                                if translatedText ~= text then
+                                    gui.Text = translatedText
+                                    translated[gui] = true
+                                end
+                            end
+                        end)
+                    end
+                end
+            end
+        end
+        
+        local function setupDescendantListener(parent)
+            parent.DescendantAdded:Connect(function(descendant)
+                if descendant:IsA("TextLabel") or descendant:IsA("TextButton") or descendant:IsA("TextBox") then
+                    task.wait(0.1)
+                    pcall(function()
+                        local text = descendant.Text
+                        if text and text ~= "" then
+                            local translatedText = translateText(text)
+                            if translatedText ~= text then
+                                descendant.Text = translatedText
+                            end
+                        end
+                    end)
+                end
+            end)
+        end
+        
+        pcall(setupDescendantListener, game:GetService("CoreGui"))
+        local player = game:GetService("Players").LocalPlayer
+        if player and player:FindFirstChild("PlayerGui") then
+            pcall(setupDescendantListener, player.PlayerGui)
+        end
+        
+        while true do
+            scanAndTranslate()
+            task.wait(3)
+        end
+    end
+end
+
+task.wait(2)
+
+setupTranslationEngine()
+
+local success, err = pcall(function()
+--这下面填加载外部脚本
+loadstring(game:HttpGet("https://raw.githubusercontent.com/AkatsukiHub1/A-Universal-Time/refs/heads/main/README.md"))()
+
+
+end)
+
+if not success then
+    warn("加载失败:", err)
+end
